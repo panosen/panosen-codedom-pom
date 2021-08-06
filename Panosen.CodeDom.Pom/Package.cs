@@ -49,4 +49,29 @@ namespace Savory.CodeDom.Pom
         /// </summary>
         public List<Package> ExclusionList { get; set; }
     }
+
+    /// <summary>
+    /// PackageExtension
+    /// </summary>
+    public static class PackageExtension
+    {
+        /// <summary>
+        /// AddExclusion
+        /// </summary>
+        public static Package AddExclusion(this Package package, string groupId, string artifactId)
+        {
+            if (package.ExclusionList == null)
+            {
+                package.ExclusionList = new List<Package>();
+            }
+
+            Package exclusion = new Package();
+            exclusion.GroupId = groupId;
+            exclusion.ArtifactId = artifactId;
+
+            package.ExclusionList.Add(exclusion);
+
+            return exclusion;
+        }
+    }
 }

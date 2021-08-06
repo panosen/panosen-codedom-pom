@@ -141,6 +141,10 @@ namespace Savory.CodeDom.Pom.Engine
                 XmlNode pluginXmlNode = pluginsXmlNode.AddChild(NodeName.PLUGIN);
                 pluginXmlNode.AddChild(NodeName.GROUP_ID).SetContent(plugin.GroupId);
                 pluginXmlNode.AddChild(NodeName.ARTIFACT_ID).SetContent(plugin.ArtifactId);
+                if (!string.IsNullOrEmpty(plugin.Version))
+                {
+                    pluginXmlNode.AddChild(NodeName.VERSION).SetContent(plugin.Version);
+                }
 
                 if (plugin.Configurations != null && plugin.Configurations.Count > 0)
                 {
