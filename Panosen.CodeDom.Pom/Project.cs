@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Savory.CodeDom.Pom
+namespace Panosen.CodeDom.Pom
 {
     /// <summary>
     /// 一个pom文件
@@ -44,6 +44,11 @@ namespace Savory.CodeDom.Pom
         public string Description { get; set; }
 
         /// <summary>
+        /// properies
+        /// </summary>
+        public List<Property> PropertyList { get; set; }
+
+        /// <summary>
         /// dependencyManagement
         /// </summary>
         public List<Package> DependencyManagement { get; set; }
@@ -70,6 +75,25 @@ namespace Savory.CodeDom.Pom
     public static class ProjectExtension
     {
         /// <summary>
+        /// AddProperty
+        /// </summary>
+        public static Property AddProperty(this Project project, string name, string value)
+        {
+            if (project.PropertyList == null)
+            {
+                project.PropertyList = new List<Property>();
+            }
+
+            Property property = new Property();
+            property.Name = name;
+            property.Value = value;
+
+            project.PropertyList.Add(property);
+
+            return property;
+        }
+
+        /// <summary>
         /// AddDependencyManagement
         /// </summary>
         public static void AddDependencyManagement(this Project codeProject, Package package)
@@ -85,7 +109,7 @@ namespace Savory.CodeDom.Pom
         /// <summary>
         /// AddDependencyManagement
         /// </summary>
-        public static Package AddDependencyManagement(this Project codeProject, string groupId, string artifactId, string version, string type = "pom", string scope = "import")
+        public static Package AddDependencyManagement(this Project codeProject, string groupId, string artifactId, string version, string type = null, string scope = null)
         {
             if (codeProject.DependencyManagement == null)
             {

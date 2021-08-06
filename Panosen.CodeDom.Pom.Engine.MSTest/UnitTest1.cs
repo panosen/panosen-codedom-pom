@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Text;
 
-namespace Savory.CodeDom.Pom.Engine.MSTest
+namespace Panosen.CodeDom.Pom.Engine.MSTest
 {
     [TestClass]
     public class UnitTest1

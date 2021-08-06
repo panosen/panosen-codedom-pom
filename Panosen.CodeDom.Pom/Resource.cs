@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Savory.CodeDom.Pom
+namespace Panosen.CodeDom.Pom
 {
     /// <summary>
     /// Resource

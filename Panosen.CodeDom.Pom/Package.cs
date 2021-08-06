@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Savory.CodeDom.Pom
+namespace Panosen.CodeDom.Pom
 {
     /// <summary>
     /// 包

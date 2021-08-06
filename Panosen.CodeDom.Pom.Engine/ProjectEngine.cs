@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Savory.CodeDom.Pom.Engine
+namespace Panosen.CodeDom.Pom.Engine
 {
     /// <summary>
     /// PomCodeEngine
@@ -26,11 +26,11 @@ namespace Savory.CodeDom.Pom.Engine
             new XmlCodeEngine().Generate(projectNode, codeWriter, new Panosen.CodeDom.Xml.Engine.GenerateOptions
             {
                 TabString = "    ",
-                AttribuesPerLine = 4
+                AttribuesPerLine = 2
             });
         }
 
-        private XmlNode BuildProjectNode(Project codeProject, GenerateOptions options)
+        private XmlNode BuildProjectNode(Project project, GenerateOptions options)
         {
             XmlNode projectXmlNode = new XmlNode();
             projectXmlNode.Name = NodeName.PROJECT;
@@ -41,42 +41,51 @@ namespace Savory.CodeDom.Pom.Engine
 
             projectXmlNode.AddChild("modelVersion").SetContent("4.0.0");
 
-            projectXmlNode.AddChild(NodeName.GROUP_ID, newLineBeforeNode: true).SetContent(codeProject.GroupId);
-            projectXmlNode.AddChild(NodeName.ARTIFACT_ID).SetContent(codeProject.ArtifactId);
-            projectXmlNode.AddChild(NodeName.VERSION).SetContent(codeProject.Version);
-
-            if (codeProject.Parent != null)
+            if (project.Parent != null)
             {
                 var parent = projectXmlNode.AddChild(NodeName.PARENT, newLineBeforeNode: true);
-                parent.AddChild(NodeName.GROUP_ID).SetContent(codeProject.Parent.GroupId);
-                parent.AddChild(NodeName.ARTIFACT_ID).SetContent(codeProject.Parent.ArtifactId);
-                parent.AddChild(NodeName.VERSION).SetContent(codeProject.Parent.Version);
+                parent.AddChild(NodeName.GROUP_ID).SetContent(project.Parent.GroupId);
+                parent.AddChild(NodeName.ARTIFACT_ID).SetContent(project.Parent.ArtifactId);
+                parent.AddChild(NodeName.VERSION).SetContent(project.Parent.Version);
             }
 
-            if (codeProject.Packaging != null)
+            projectXmlNode.AddChild(NodeName.GROUP_ID, newLineBeforeNode: true).SetContent(project.GroupId);
+            projectXmlNode.AddChild(NodeName.ARTIFACT_ID).SetContent(project.ArtifactId);
+            projectXmlNode.AddChild(NodeName.VERSION).SetContent(project.Version);
+
+            if (project.Packaging != null)
             {
-                projectXmlNode.AddChild(NodeName.PACKAGING).SetContent(codeProject.Packaging);
+                projectXmlNode.AddChild(NodeName.PACKAGING).SetContent(project.Packaging);
             }
-            if (codeProject.Name != null)
+            if (project.Name != null)
             {
-                projectXmlNode.AddChild(NodeName.NAME).SetContent(codeProject.Name);
+                projectXmlNode.AddChild(NodeName.NAME).SetContent(project.Name);
             }
-            if (codeProject.Description != null)
+            if (project.Description != null)
             {
-                projectXmlNode.AddChild(NodeName.DESCRIPTION).SetContent(codeProject.Description);
+                projectXmlNode.AddChild(NodeName.DESCRIPTION).SetContent(project.Description);
             }
 
-            if (codeProject.DependencyManagement != null && codeProject.DependencyManagement.Count > 0)
+            if (project.PropertyList != null && project.PropertyList.Count > 0)
+            {
+                var properties = projectXmlNode.AddChild(NodeName.PROPERTIES);
+                foreach (var property in project.PropertyList)
+                {
+                    properties.AddChild(property.Name).SetContent(property.Value);
+                }
+            }
+
+            if (project.DependencyManagement != null && project.DependencyManagement.Count > 0)
             {
                 var dependencies = projectXmlNode.AddChild(NodeName.DEPENDENCY_MANAGEMENT, newLineBeforeNode: true).AddChild(NodeName.DEPENDENCIES);
-                foreach (var package in codeProject.DependencyManagement)
+                foreach (var package in project.DependencyManagement)
                 {
                     dependencies.AddChild(ToXmlNode(package));
                 }
             }
 
-            var resourcesXmlNode = ToResourcesXmlNode(codeProject.Resources);
-            var pluginsXmlNode = ToPluginsXmlNode(codeProject.Plugins);
+            var resourcesXmlNode = ToResourcesXmlNode(project.Resources);
+            var pluginsXmlNode = ToPluginsXmlNode(project.Plugins);
             if (resourcesXmlNode != null || pluginsXmlNode != null)
             {
                 var buildXmlNode = projectXmlNode.AddChild(NodeName.BUILD);
@@ -90,10 +99,10 @@ namespace Savory.CodeDom.Pom.Engine
                 }
             }
 
-            if (codeProject.DependencyList != null && codeProject.DependencyList.Count > 0)
+            if (project.DependencyList != null && project.DependencyList.Count > 0)
             {
                 var dependencies = projectXmlNode.AddChild(NodeName.DEPENDENCIES, true);
-                foreach (var package in codeProject.DependencyList)
+                foreach (var package in project.DependencyList)
                 {
                     var dependency = ToXmlNode(package);
                     dependency.NewLineBeforeNode = true;

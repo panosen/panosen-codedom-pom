@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Savory.CodeDom.Pom.Engine
+namespace Panosen.CodeDom.Pom.Engine
 {
     /// <summary>
     /// GenerateOptions

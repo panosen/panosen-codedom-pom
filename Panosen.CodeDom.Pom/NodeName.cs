@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Savory.CodeDom.Pom
+namespace Panosen.CodeDom.Pom
 {
     /// <summary>
     /// NodeName
@@ -40,6 +40,11 @@ namespace Savory.CodeDom.Pom
         /// name
         /// </summary>
         public static readonly string NAME = "name";
+
+        /// <summary>
+        /// properties
+        /// </summary>
+        public static readonly string PROPERTIES = "properties";
 
         /// <summary>
         /// description
