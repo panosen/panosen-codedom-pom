@@ -34,6 +34,7 @@ namespace Panosen.CodeDom.Pom.Engine
         {
             XmlNode projectXmlNode = new XmlNode();
             projectXmlNode.Name = NodeName.PROJECT;
+            projectXmlNode.NewLineBeforeEnd = true;
 
             projectXmlNode.AddAttribute("xmlns", "http://maven.apache.org/POM/4.0.0");
             projectXmlNode.AddAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
@@ -68,7 +69,7 @@ namespace Panosen.CodeDom.Pom.Engine
 
             if (project.PropertyList != null && project.PropertyList.Count > 0)
             {
-                var properties = projectXmlNode.AddChild(NodeName.PROPERTIES);
+                var properties = projectXmlNode.AddChild(NodeName.PROPERTIES, true);
                 foreach (var property in project.PropertyList)
                 {
                     properties.AddChild(property.Name).SetContent(property.Value);
@@ -88,7 +89,7 @@ namespace Panosen.CodeDom.Pom.Engine
             var pluginsXmlNode = ToPluginsXmlNode(project.Plugins);
             if (resourcesXmlNode != null || pluginsXmlNode != null)
             {
-                var buildXmlNode = projectXmlNode.AddChild(NodeName.BUILD);
+                var buildXmlNode = projectXmlNode.AddChild(NodeName.BUILD, true);
                 if (resourcesXmlNode != null)
                 {
                     buildXmlNode.AddChild(resourcesXmlNode);
@@ -105,7 +106,6 @@ namespace Panosen.CodeDom.Pom.Engine
                 foreach (var package in project.DependencyList)
                 {
                     var dependency = ToXmlNode(package);
-                    dependency.NewLineBeforeNode = true;
                     dependencies.AddChild(dependency);
                 }
             }
