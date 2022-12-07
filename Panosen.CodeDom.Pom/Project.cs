@@ -67,6 +67,16 @@ namespace Panosen.CodeDom.Pom
         /// plugins
         /// </summary>
         public List<Plugin> Plugins { get; set; }
+
+        /// <summary>
+        /// 发布正式版
+        /// </summary>
+        public List<DistributionRepository> DistributionRepositoryList { get; set; }
+
+        /// <summary>
+        /// 发布草稿版
+        /// </summary>
+        public List<DistributionSnapshotRepository> DistributionSnapshotRepositoryList { get; set; }
     }
 
     /// <summary>
@@ -91,6 +101,46 @@ namespace Panosen.CodeDom.Pom
             project.PropertyList.Add(property);
 
             return property;
+        }
+
+        /// <summary>
+        /// AddDistributionRepository
+        /// </summary>
+        public static void AddDistributionRepository(this Project project, string id, string url, string name = null, bool? uniqueVersion = null, string layout = null)
+        {
+            if (project.DistributionRepositoryList == null)
+            {
+                project.DistributionRepositoryList = new List<DistributionRepository>();
+            }
+
+            var distributionRepository = new DistributionRepository();
+            distributionRepository.Id = id;
+            distributionRepository.Url = url;
+            distributionRepository.Name = name;
+            distributionRepository.UniqueVersion = uniqueVersion;
+            distributionRepository.Layout = layout;
+
+            project.DistributionRepositoryList.Add(distributionRepository);
+        }
+
+        /// <summary>
+        /// AddDistributionSnapshotRepository
+        /// </summary>
+        public static void AddDistributionSnapshotRepository(this Project project, string id, string url, string name = null, bool? uniqueVersion = null, string layout = null)
+        {
+            if (project.DistributionSnapshotRepositoryList == null)
+            {
+                project.DistributionSnapshotRepositoryList = new List<DistributionSnapshotRepository>();
+            }
+
+            var distributionSnapshotRepository = new DistributionSnapshotRepository();
+            distributionSnapshotRepository.Id = id;
+            distributionSnapshotRepository.Url = url;
+            distributionSnapshotRepository.Name = name;
+            distributionSnapshotRepository.UniqueVersion = uniqueVersion;
+            distributionSnapshotRepository.Layout = layout;
+
+            project.DistributionSnapshotRepositoryList.Add(distributionSnapshotRepository);
         }
 
         /// <summary>

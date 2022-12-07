@@ -113,6 +113,21 @@ namespace Panosen.CodeDom.Pom
         public static readonly string DEPENDENCY_MANAGEMENT = "dependencyManagement";
 
         /// <summary>
+        /// distributionManagement
+        /// </summary>
+        public static readonly string DISTRIBUTION_MANAGEMENT = "distributionManagement";
+
+        /// <summary>
+        /// repository
+        /// </summary>
+        public static readonly string REPOSITORY = "repository";
+
+        /// <summary>
+        /// snapshotRepository
+        /// </summary>
+        public static readonly string SNAPSHOT_REPOSITORY = "snapshotRepository";
+
+        /// <summary>
         /// skip
         /// </summary>
         public static readonly string SKIP = "skip";
@@ -141,5 +156,26 @@ namespace Panosen.CodeDom.Pom
         /// goal
         /// </summary>
         public static readonly string GOAL = "goal";
+
+        /// <summary>
+        /// id
+        /// </summary>
+        public static readonly string ID = "id";
+
+        /// <summary>
+        /// layout
+        /// </summary>
+        public static readonly string LAYOUT = "layout";
+
+        /// <summary>
+        /// url
+        /// </summary>
+        public static readonly string URL = "url";
+
+        /// <summary>
+        /// uniqueVersion
+        /// </summary>
+        public static readonly string UNIQUE_VERSION = "uniqueVersion";
+
     }
 }
